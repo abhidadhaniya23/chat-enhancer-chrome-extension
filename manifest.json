@@ -1,20 +1,23 @@
 {
-  "manifest_version": 2,
   "name": "Chat Enhancer",
   "version": "1.0",
-  "description": "Enhance the chat system",
-  "permissions": ["activeTab", "storage"],
-  "browser_action": {
-    "default_popup": "popup.html"
+  "manifest_version": 3,
+  "action": {
+    "default_title": "Click to show an alert"
   },
+  "description": "Enhance the chat system",
+  "permissions": ["activeTab", "storage", "webNavigation", "webRequest"],
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/c/*"],
       "js": ["content.js"]
     }
   ],
+  "externally_connectable": {
+    "matches": ["*://*.google.com/*"]
+  },
+  "host_permissions": ["*://*/*"],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   }
 }
