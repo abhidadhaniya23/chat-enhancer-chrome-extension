@@ -2,7 +2,7 @@ const addToggleButton = () => {
   // Add toggle button to extend/close the sidebar
   const toggleButton = document.createElement('button')
   toggleButton.id = 'rightSidebarToggleButton'
-  toggleButton.innerHTML = `<img src='/images/logo.png'/>`
+  toggleButton.innerHTML = `<img width='25px' src='https://raw.githubusercontent.com/abhidadhaniya23/chat-enhancer-chrome-extension/main/images/logo.png'/>`
   toggleButton.addEventListener('click', () => {
     // Toggle sidebar
     const isSidebarExist = document.getElementById('rightSidebar')
@@ -10,7 +10,10 @@ const addToggleButton = () => {
     else addRightSidebar()
   })
   setTimeout(() => {
-    document.querySelectorAll('.btn')[1].parentNode.appendChild(toggleButton)
+    // FIX: Temporary solution to find share button and append toggle button
+    if (!document.getElementById('rightSidebarToggleButton'))
+      if (document.querySelectorAll('.flex.gap-2.pr-1')[0].hasChildNodes())
+        document.querySelectorAll('.btn')[1].parentNode.appendChild(toggleButton)
   }, 2000)
 }
 
@@ -70,11 +73,10 @@ function addRightSidebar() {
 
 // Listen for messages from the background script
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.action === 'addRightSidebar') {
+  if (request.action === 'clearRightSidebar') {
     clearRightSidebar()
-    addRightSidebar()
+    clearToggleButton()
   }
-  if (request.action === 'clearRightSidebar') clearRightSidebar()
 })
 
 // Function to clear existing right sidebar content
@@ -83,6 +85,11 @@ function clearRightSidebar() {
   if (existingSidebar) {
     existingSidebar.remove()
   }
+}
+
+function clearToggleButton() {
+  const existingToggleButton = document.getElementById('rightSidebarToggleButton')
+  if (existingToggleButton) existingToggleButton.remove()
 }
 
 // Function to handle URL change and trigger right sidebar update
