@@ -5,11 +5,11 @@
   "action": {
     "default_title": "Click to show an alert"
   },
-  "description": "Enhance the chat system",
+  "description": "Enhanced features in your ChatGPT",
   "permissions": ["activeTab", "storage", "webNavigation", "webRequest"],
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/c/*"],
+      "matches": ["https://chat.openai.com/*"],
       "js": ["content.js"]
     }
   ],
