@@ -5,6 +5,10 @@
   "action": {
     "default_title": "Click to show an alert"
   },
+  "icons": {
+    "48": "/images/logo.png",
+    "128": "/images/logo.png"
+  },
   "description": "Enhanced features in your ChatGPT",
   "permissions": ["activeTab", "storage", "webNavigation", "webRequest"],
   "content_scripts": [

@@ -1,3 +1,19 @@
+const addToggleButton = () => {
+  // Add toggle button to extend/close the sidebar
+  const toggleButton = document.createElement('button')
+  toggleButton.id = 'rightSidebarToggleButton'
+  toggleButton.innerHTML = `<img src='/images/logo.png'/>`
+  toggleButton.addEventListener('click', () => {
+    // Toggle sidebar
+    const isSidebarExist = document.getElementById('rightSidebar')
+    if (isSidebarExist) clearRightSidebar()
+    else addRightSidebar()
+  })
+  setTimeout(() => {
+    document.querySelectorAll('.btn')[1].parentNode.appendChild(toggleButton)
+  }, 2000)
+}
+
 // Function to add or refresh the right sidebar content
 function addRightSidebar() {
   const userPrompts = document.querySelectorAll(`[data-message-author-role='user']`)
@@ -23,6 +39,7 @@ function addRightSidebar() {
     padding: 4px 8px;
     border-radius: 8px;
     transition: background-color 0.3s ease;
+    overflow: hidden;
     margin-bottom: 2px;
     `
 
@@ -46,6 +63,9 @@ function addRightSidebar() {
   if (userPrompts.length > 0)
     // Create and populate the right sidebar
     document.querySelectorAll('div')[1].append(rightSidebar)
+
+  // Add Toggle button
+  if (!document.getElementById('rightSidebarToggleButton')) addToggleButton()
 }
 
 // Listen for messages from the background script
@@ -56,15 +76,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
   if (request.action === 'clearRightSidebar') clearRightSidebar()
 })
-
-// Add toggle button to extend/close the sidebar
-// const toggleButton = document.createElement('button')
-// toggleButton.innerText = 'Toggle Sidebar'
-// toggleButton.style.marginTop = '10px'
-// toggleButton.addEventListener('click', () => {
-//   rightSidebar.classList.toggle('extended')
-// })
-// rightSidebar.appendChild(toggleButton)
 
 // Function to clear existing right sidebar content
 function clearRightSidebar() {
