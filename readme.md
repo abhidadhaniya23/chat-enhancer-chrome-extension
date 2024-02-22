@@ -5,6 +5,8 @@
 
 ## Demo
 
+[![Watch the video](/images/demo.png)](https://youtu.be/a0zN59UWkrQ?si=fUl3RTXw6rL8doZB)
+
 ## Features
 
 - [x] Extract prompts in right sidebar
