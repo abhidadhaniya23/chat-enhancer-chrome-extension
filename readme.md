@@ -1,5 +1,10 @@
 # Chat Enhancer Chrome Extension
 
+> ⚠️ **Warning: Do not use any ad blockers on chat.openai.com website!**
+> Our extension relies on web requests to update the sidebar data in the background. Using ad blockers may interfere with this functionality.
+
+## Demo
+
 ## Features
 
 - [x] Extract prompts in right sidebar

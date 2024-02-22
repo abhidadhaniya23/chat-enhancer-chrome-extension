@@ -2,7 +2,7 @@ const addToggleButton = () => {
   // Add toggle button to extend/close the sidebar
   const toggleButton = document.createElement('button')
   toggleButton.id = 'rightSidebarToggleButton'
-  toggleButton.innerHTML = `<img width='25px' src='https://raw.githubusercontent.com/abhidadhaniya23/chat-enhancer-chrome-extension/main/images/logo.png'/>`
+  toggleButton.innerHTML = `<img width='20px' src='https://raw.githubusercontent.com/abhidadhaniya23/chat-enhancer-chrome-extension/main/images/logo.png'/>`
   toggleButton.addEventListener('click', () => {
     // Toggle sidebar
     const isSidebarExist = document.getElementById('rightSidebar')
@@ -11,9 +11,12 @@ const addToggleButton = () => {
   })
   setTimeout(() => {
     // FIX: Temporary solution to find share button and append toggle button
-    if (!document.getElementById('rightSidebarToggleButton'))
-      if (document.querySelectorAll('.flex.gap-2.pr-1')[0].hasChildNodes())
-        document.querySelectorAll('.btn')[1].parentNode.appendChild(toggleButton)
+    if (!document.getElementById('rightSidebarToggleButton')) {
+      const form = document.querySelector('form')
+      if (document.querySelector('form')) form.append(toggleButton)
+      // if (document.querySelectorAll('.flex.gap-2.pr-1')[0].hasChildNodes())
+      //   document.querySelectorAll('.btn')[1].parentNode.appendChild(toggleButton)
+    }
   }, 2000)
 }
 
