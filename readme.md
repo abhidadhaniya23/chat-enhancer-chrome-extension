@@ -17,7 +17,7 @@
 
 ## Installation and Setup Extension for Local System
 
-1. Clone the repository to your local machine.
+1. Download chat-enhancer-chrome-extension.zip form releases.
 2. Open your browser and navigate extensions.
 3. Enable Developer mode using the toggle switch in the top right corner.
 4. Click on the "Load unpacked" button, extract the cloned repository and select the folder where you extracted cloned the repository.
