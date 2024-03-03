@@ -1,30 +1,29 @@
+// Content.js
+
+// Display initial message upon extension loading
 console.log(
   `Chat enhancer extension loaded successfully.\n1. It's an open source project. Learn more: https://github.com/abhidadhaniya23/chat-enhancer-chrome-extension\n2. Extension is build with ❤️ by Abhi. Learn more: https://abhidadhaniya.com`
 )
 
+// Add toggle button for extending/closing the sidebar
 const addToggleButton = () => {
-  // Add toggle button to extend/close the sidebar
   const toggleButton = document.createElement('button')
   toggleButton.id = 'rightSidebarToggleButton'
   toggleButton.innerHTML = `<img width='20px' src='https://raw.githubusercontent.com/abhidadhaniya23/chat-enhancer-chrome-extension/main/images/logo.png'/>`
   toggleButton.addEventListener('click', () => {
-    // Toggle sidebar
     const isSidebarExist = document.getElementById('rightSidebar')
     if (isSidebarExist) clearRightSidebar()
     else addRightSidebar()
   })
   setTimeout(() => {
-    // FIX: Temporary solution to find share button and append toggle button
     if (!document.getElementById('rightSidebarToggleButton')) {
       const form = document.querySelector('form')
-      if (document.querySelector('form')) form.append(toggleButton)
-      // if (document.querySelectorAll('.flex.gap-2.pr-1')[0].hasChildNodes())
-      //   document.querySelectorAll('.btn')[1].parentNode.appendChild(toggleButton)
+      if (form) form.append(toggleButton)
     }
   }, 2000)
 }
 
-// Function to add or refresh the right sidebar content
+// Add or refresh the right sidebar content
 function addRightSidebar() {
   addCopyButtonForNumberList()
   const userPrompts = document.querySelectorAll(`[data-message-author-role='user']`)
@@ -44,7 +43,7 @@ function addRightSidebar() {
 
     const promptElement = document.createElement('div')
     promptElement.innerText = `${index + 1}. ${truncateText(promptContent, 60)}`
-    promptElement.title = promptContent // Add full text as title attribute
+    promptElement.title = promptContent
     promptElement.style.cssText = `
     cursor: pointer;
     padding: 4px 8px;
@@ -54,16 +53,14 @@ function addRightSidebar() {
     margin-bottom: 2px;
     `
 
-    // Add hover effect
     promptElement.addEventListener('mouseover', () => {
-      promptElement.style.backgroundColor = '#202123' // Change background color on hover
+      promptElement.style.backgroundColor = '#202123'
     })
 
     promptElement.addEventListener('mouseout', () => {
-      promptElement.style.backgroundColor = '' // Reset background color on mouseout
+      promptElement.style.backgroundColor = ''
     })
 
-    // Add click event to scroll to the clicked prompt
     promptElement.addEventListener('click', () => {
       prompt.scrollIntoView({ behavior: 'smooth', block: 'start' })
     })
@@ -71,11 +68,8 @@ function addRightSidebar() {
     rightSidebar.appendChild(promptElement)
   })
 
-  if (userPrompts.length > 0)
-    // Create and populate the right sidebar
-    document.querySelectorAll('div')[1].append(rightSidebar)
+  if (userPrompts.length > 0) document.querySelectorAll('div')[1].append(rightSidebar)
 
-  // Add Toggle button
   if (!document.getElementById('rightSidebarToggleButton')) addToggleButton()
 }
 
@@ -110,7 +104,6 @@ function addCopyButtonForNumberList() {
         }, 2000)
       }
 
-      // console.log(isApplicable, item)
       item.childNodes.forEach((list, i) => {
         if (!list.querySelector('strong')) isApplicable = false
       })
@@ -146,19 +139,12 @@ function clearToggleButton() {
 // Function to handle URL change and trigger right sidebar update
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === 'updateRightSidebar') {
-    // console.log(sender)
-    // Handle URL change
     clearRightSidebar()
     addRightSidebar()
   }
 })
 
-// Listen for the popstate event to detect URL changes
-// window.addEventListener('popstate', () => {
-// This will only fire when going back to history -> UNDO / REDO
-// })
-
-// Helper function to truncate text
+// Function to truncate text to a specified length
 function truncateText(text, maxLength) {
   return text.length > maxLength ? text.slice(0, maxLength) + '...' : text
 }

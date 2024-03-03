@@ -12,8 +12,8 @@
 - [x] Extract prompts in right sidebar
 - [x] Realtime prompts pushing into stack after new prompt
 - [x] Update sidebar when you change the threads
-- [ ] Used and limit tokens showcase (From network tab)
-- [ ] GPT-4 updates (URL Changes)
+- [ ] Token usage and limit showcase
+- [ ] Support for GPT-4 updates
 
 ## Installation and Setup Extension for Local System
 
@@ -29,9 +29,9 @@ We welcome contributions from the community! To contribute to the Chat Enhancer 
 
 1. Fork the repository to your GitHub account.
 2. Clone the forked repository to your local machine.
-3. Create a new branch for your feature or bug fix:
-4. Make your changes and commit them:
-5. Push your changes to your fork:
+3. Create a new branch for your feature or bug fix.
+4. Make your changes and commit them.
+5. Push your changes to your fork.
 6. Open a pull request to the main repository.
 
 ## References
