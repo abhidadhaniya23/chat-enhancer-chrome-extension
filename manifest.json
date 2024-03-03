@@ -1,6 +1,6 @@
 {
   "name": "Chat Enhancer",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "action": {
     "default_title": "Click to show an alert"
@@ -10,7 +10,7 @@
     "128": "/images/logo.png"
   },
   "description": "Enhanced features in your ChatGPT",
-  "permissions": ["activeTab", "storage", "webNavigation", "webRequest"],
+  "permissions": ["activeTab", "webNavigation", "webRequest"],
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/*"],

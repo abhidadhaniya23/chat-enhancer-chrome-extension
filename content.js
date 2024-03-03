@@ -1,3 +1,7 @@
+console.log(
+  `Chat enhancer extension loaded successfully.\n1. It's an open source project. Learn more: https://github.com/abhidadhaniya23/chat-enhancer-chrome-extension\n2. Extension is build with ❤️ by Abhi. Learn more: https://abhidadhaniya.com`
+)
+
 const addToggleButton = () => {
   // Add toggle button to extend/close the sidebar
   const toggleButton = document.createElement('button')
@@ -22,6 +26,7 @@ const addToggleButton = () => {
 
 // Function to add or refresh the right sidebar content
 function addRightSidebar() {
+  addCopyButtonForNumberList()
   const userPrompts = document.querySelectorAll(`[data-message-author-role='user']`)
   const rightSidebar = document.createElement('div')
   rightSidebar.id = 'rightSidebar'
@@ -72,6 +77,49 @@ function addRightSidebar() {
 
   // Add Toggle button
   if (!document.getElementById('rightSidebarToggleButton')) addToggleButton()
+}
+
+function addCopyButtonForNumberList() {
+  let isApplicable = true
+  const ol = document.querySelectorAll('.markdown ol')
+
+  if (ol.length > 0) {
+    ol.forEach((item) => {
+      const copyButton = document.createElement('button')
+      copyButton.classList.add('copyButton')
+      copyButton.innerText = 'Copy List'
+      copyButton.style.marginTop = '12px'
+      copyButton.style.background = '#404040'
+      copyButton.style.padding = '0px 8px'
+      copyButton.style.borderRadius = '5px'
+      copyButton.style.width = 'fit-content'
+      copyButton.style.color = 'white'
+      copyButton.onclick = () => {
+        let text2Copy = ''
+        item.childNodes.forEach((list, i) => {
+          if (i === item.childNodes.length - 1) return
+          const text = list.querySelector('strong').innerText
+          const listItem = text.endsWith(':') ? text.slice(0, text.length - 1) : list.querySelector('strong').innerText
+          return (text2Copy += `${i + 1}. ${listItem}\n`)
+        })
+
+        navigator.clipboard.writeText(text2Copy)
+        copyButton.innerText = 'Copied'
+        setTimeout(() => {
+          copyButton.innerText = 'Copy List'
+        }, 2000)
+      }
+
+      // console.log(isApplicable, item)
+      item.childNodes.forEach((list, i) => {
+        if (!list.querySelector('strong')) isApplicable = false
+      })
+
+      if (item.querySelector('.copyButton')) isApplicable = false
+      if (isApplicable) item.append(copyButton)
+      isApplicable = true
+    })
+  }
 }
 
 // Listen for messages from the background script
